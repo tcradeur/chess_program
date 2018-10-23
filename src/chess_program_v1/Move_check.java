@@ -29,6 +29,25 @@ public class Move_check {
         return 0; 
     }
     
+   //return 1 when wrong input
+   //return 0 means there is no problem
+    public int input_check(String move){
+        
+        //check sting length is 5 and that third char is a ','
+        if(!move.substring(2,3).equals(",") || move.length() != 5){return 1;}
+               
+        //check valid input
+        char x_start = move.substring(0,1).charAt(0);
+        char y_start = move.substring(1,2).charAt(0);
+        char x_finish = move.substring(3,4).charAt(0);
+        char y_finish = move.substring(4).charAt(0);
+        if ("abcdefgh".indexOf(x_start) == -1){return 1;}
+        if ("12345678".indexOf(y_start) == -1){return 1;}
+        if ("abcdefgh".indexOf(x_finish) == -1){return 1;}
+        if ("12345678".indexOf(y_finish) == -1){return 1;}
+           
+        return 0;
+    }
     //return 3 out of bounds
     //return 0 means there is no problem
     public int check_boundary(int x_start, int y_start, int x_finish, int y_finish){
@@ -73,6 +92,10 @@ public class Move_check {
         //return 1 means an illegal move
         //return 0 means there is no problem
     public int pawn_check(int x_start, int y_start, int x_finish, int y_finish, char player, Board my_board){
+        
+        int v_pcheck= player_check(x_start, y_start, x_finish, y_finish, player, my_board);
+        if(v_pcheck != 0){return 1;}
+        
         //black player check
         if(player == 'B'){
             //one positon forward
@@ -149,21 +172,21 @@ public class Move_check {
     public int bishop_check(int x_start, int y_start, int x_finish, int y_finish, Board my_board){
        //check diagnal movement
         if(Math.abs(x_start - x_finish) == Math.abs(y_start - y_finish)){
-           //upper left
+           //lower left
             if ((x_start > x_finish) && (y_start < y_finish)){ 
                 for(int x = x_start-1, y = y_start+1; x > x_finish; x--, y++)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
-            //upper right
+            //lower right
             }else if ((x_start < x_finish) && (y_start < y_finish)){
                 for(int x = x_start+1, y = y_start+1; x < x_finish; x++, y++)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
-            //lower left
+            //upper left
             }else if ((x_start > x_finish) && (y_start > y_finish)){
                 for(int x = x_start-1,y = y_start-1; x > x_finish; x--, y--)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
             //upper right
             }else if ((x_start < x_finish) && (y_start > y_finish)){
-                for(int x = x_start+1,y = y_start-1; x > x_finish; x++, y--)
+                for(int x = x_start+1,y = y_start-1; x < x_finish; x++, y--)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
             }
         }else{return 1;}
@@ -212,21 +235,21 @@ public class Move_check {
         }
         //check diagnal movement
         else if(Math.abs(x_start - x_finish) == Math.abs(y_start - y_finish)){
-            //upper left
+           //lower left
             if ((x_start > x_finish) && (y_start < y_finish)){ 
                 for(int x = x_start-1, y = y_start+1; x > x_finish; x--, y++)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
-            //upper right
+            //lower right
             }else if ((x_start < x_finish) && (y_start < y_finish)){
                 for(int x = x_start+1, y = y_start+1; x < x_finish; x++, y++)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
-            //lower left
+            //upper left
             }else if ((x_start > x_finish) && (y_start > y_finish)){
                 for(int x = x_start-1,y = y_start-1; x > x_finish; x--, y--)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
             //upper right
             }else if ((x_start < x_finish) && (y_start > y_finish)){
-                for(int x = x_start+1,y = y_start-1; x > x_finish; x++, y--)
+                for(int x = x_start+1,y = y_start-1; x < x_finish; x++, y--)
                     if(my_board.get_piece(x, y) != ' ' ){return 1;}
             }
         }else{return 1;}

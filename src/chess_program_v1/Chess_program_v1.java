@@ -29,7 +29,7 @@ public class Chess_program_v1 {
         int x_finish;
         int y_finish;
         
-        int legal_move;
+        int legal_move = 1;
         int move_success;
         
         my_board.setup_board();
@@ -45,45 +45,55 @@ public class Chess_program_v1 {
                 //white player goes first
                 System.out.println("White player move(from,to)(xy,xy):");
                 move=scan.nextLine();
-                //convert sent int string to int for 2D array to use
-                x_start = x_convert(move.substring(0,1));
-                y_start = (Integer.parseInt(move.substring(1,2)) - 1);
-                x_finish = x_convert(move.substring(3,4));
-                y_finish = (Integer.parseInt(move.substring(4)) - 1);
-                
+            
                 //check input
+                if(my_check.input_check(move) == 1){
+                    System.out.println("Improper input, try again.");
+                    legal_move=1;
+                }else{
+                    //convert sent int string to int for 2D array to use
+                    x_start = x_convert(move.substring(0,1));
+                    y_start = (Integer.parseInt(move.substring(1,2)) - 1);
+                    x_finish = x_convert(move.substring(3,4));
+                    y_finish = (Integer.parseInt(move.substring(4)) - 1);
                 
-                //check if move is legal
-                legal_move = my_check.check_move(x_start,y_start,x_finish,y_finish,'W',my_board);
+                    //check if move is legal
+                    legal_move = my_check.check_move(x_start,y_start,x_finish,y_finish,'W',my_board);
                 
-                if(legal_move == 0){
-                    move_success = my_board.move_piece(x_start, y_start, x_finish, y_finish);
-                }
-                
+                    if(legal_move == 0){
+                        move_success = my_board.move_piece(x_start, y_start, x_finish, y_finish);
+                    }
+                } 
                 //legal_move = 0;
             //this should be a move_success check
             }while(legal_move != 0);
-
+            
+            legal_move = 1;
+        
             do{  
-            //print the board
-            my_board.print_board();
-            System.out.println("Black player move(from,to)(xy,xy):");
-            move=scan.nextLine();
-            //convert sent int string to int for 2D array to use
-            x_start = x_convert(move.substring(0,1));
-            y_start = (Integer.parseInt(move.substring(1,2)) - 1);
-            x_finish = x_convert(move.substring(3,4));
-            y_finish = (Integer.parseInt(move.substring(4)) - 1);
+                //print the board
+                my_board.print_board();
+                System.out.println("Black player move(from,to)(xy,xy):");
+                move=scan.nextLine();
             
-            //check input
+                //check input
+                if(my_check.input_check(move) == 1){
+                    System.out.println("Improper input, try again.");
+                    legal_move=1;
+                }else{
+                    //convert sent int string to int for 2D array to use
+                    x_start = x_convert(move.substring(0,1));
+                    y_start = (Integer.parseInt(move.substring(1,2)) - 1);
+                    x_finish = x_convert(move.substring(3,4));
+                    y_finish = (Integer.parseInt(move.substring(4)) - 1);
                 
-            //check if move is legal
-            legal_move = my_check.check_move(x_start,y_start,x_finish,y_finish,'B',my_board);
+                    //check if move is legal
+                    legal_move = my_check.check_move(x_start,y_start,x_finish,y_finish,'B',my_board);
                 
-            if(legal_move == 0){
-                move_success = my_board.move_piece(x_start, y_start, x_finish, y_finish);
-            }
-            
+                    if(legal_move == 0){
+                        move_success = my_board.move_piece(x_start, y_start, x_finish, y_finish);
+                    }
+                }
             //black player goes
             }while(legal_move != 0);
             

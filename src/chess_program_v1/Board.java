@@ -64,8 +64,8 @@ public class Board {
     
     public void print_board(){
         //print top
-        System.out.println("             Black                ");
-        System.out.println("   a   b   c   d   e   f   g   h  ");
+        System.out.println("              Black                ");
+        System.out.println("    a   b   c   d   e   f   g   h  ");
         System.out.println("  ---------------------------------");
         
         for (int x=0; x<8;x++){
